@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accounts Management</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Accounts Management</h1>
+    <div class="shadow-box" id="transaction-form">
+        <h2>Add Transaction</h2>
+        <form  action="/add_transaction" method="post">
+            <label for="description">Description:</label>
+            <input type="text" name="description" required><br>
+            <label for="amount">Amount:</label>
+            <input type="number" name="amount" step="0.01" required><br>
+            <label for="transaction_type">Type:</label>
+            <select name="transaction_type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select><br>
+            <label for="date">Date:</label>
+            <input type="date" name="date" required><br>
+            <button class="button-56" type="submit">Add</button>
+
+        </form>
+    </div>
+    <div class="shadow-box" id="transactions">
+        <h2>Transactions</h2>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Date</th>
+            </tr>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.transaction_type }}</td>
+                <td>{{ transaction.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div id="summary">
+        <h2>Summary</h2>
+        <p>Total Income: ${{ total_income }}</p>
+        <p>Total Expense: ${{ total_expense }}</p>
+        <p>Balance: ${{ balance }}</p>
+    </div>
+</body>
+</html>
